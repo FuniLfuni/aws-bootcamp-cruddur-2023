@@ -44,3 +44,64 @@ After running the command, I got a 404 error, and this showed that the backend w
 ```
 docker run --rm -p 4567:4567 -it backend-flask 
 ```
+
+I changed directories to the Frontend directory and I installed NPM into gitpod using this commands
+```
+cd frontend-react-js
+npm i
+```
+Then I created another dockerfile in the Frontend-react-js folder, and also pasted this command in the file
+```
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
+
+I ran the following command to build the containers
+```
+docker build -t frontend-react-js ./frontend-react-js
+```
+I ran this command to run the container
+```
+docker run -p 3000:3000 -d frontend-react-js
+```
+
+After running the commands, I could see that the frontend was working, however it was not communicating with the backend. So I ran the following command 
+```
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+
+I right clicked on the docker-compose.yml file and clicked on Compose Up. I clicked on the link again and the frontend and backend were connected.
+
+
