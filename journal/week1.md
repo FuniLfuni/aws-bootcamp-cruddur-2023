@@ -102,7 +102,11 @@ networks:
     name: cruddur
 ```
 
-I right clicked on the docker-compose.yml file and clicked on Compose Up. I clicked on the link again and the frontend and backend were connected.
+### I right clicked on the docker-compose.yml file and clicked on Compose Up. I clicked on the link again and the frontend and backend were connected.
 
 ![image of port 3000 working properly](asset/week1-port-3000.png)
 
+
+### Implimenting the notifications feature
+I created the notifications feature following the [week 1 video](https://www.youtube.com/watch?v=k-_o0cCpksk&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=27) on how to impliment this
+![image of notifications page](asset/week1-notifications-page.png)
