@@ -39,7 +39,7 @@ docker build -t  backend-flask ./backend-flask
 ### I then ran the following command to run the container
 
 After running the command, I got a 404 error, and this showed that the backend was running.
-![Imagine of the 404 page](asset/week%201%20404.png)
+![Image of the 404 page](asset/week%201%20404.png)
 
 ```
 docker run --rm -p 4567:4567 -it backend-flask 
@@ -104,4 +104,5 @@ networks:
 
 I right clicked on the docker-compose.yml file and clicked on Compose Up. I clicked on the link again and the frontend and backend were connected.
 
+![image of port 3000 working properly](asset/week1-port-3000.png)
 
